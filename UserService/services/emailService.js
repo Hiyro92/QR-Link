@@ -7,14 +7,14 @@ const transporter = nodemailer.createTransport({
     port: config.email.port,
     secure: config.email.port === 465,
     auth: {
-        user: config.email.user,
-        pass: config.email.password,
+        user: config.email.auth.user,
+        pass: config.email.auth.pass,
     },
 });
 
 // Send verification email
 const sendVerificationEmail = async (user, token) => {
-    const verificationUrl = `${config.app.frontendUrl}/verify-email/${token}`;
+    const verificationUrl = `${config.app.url}/auth/verify-email/${token}`;
 
     const mailOptions = {
         from: config.email.from,
