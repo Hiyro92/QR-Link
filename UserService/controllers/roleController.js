@@ -147,9 +147,12 @@ const updateRole = async (req, res) => {
     }
 
     // Prevent updating the default admin role (optional rule)
-    // if (role.name === 'Admin' && !role.company_id) { // Assuming system-wide admin roles have no company_id
-    //    return res.status(403).json({ message: 'Cannot update system-wide admin role' });
-    // }
+    if (role.name === "Admin" && !role.company_id) {
+      // Assuming system-wide admin roles have no company_id
+      return res
+        .status(403)
+        .json({ message: "Cannot update system-wide admin role" });
+    }
     // Or prevent updating the company's initial admin role if needed
 
     // Update role fields if provided

@@ -10,20 +10,20 @@ let sequelizeConfig = {
 
 if (config.db.dialect === "sqlite") {
   // Ensure the directory for the SQLite file exists
-  const dbPath = path.resolve(config.db.storage);
+  const dbPath = path.resolve(config.db.SQLite.storage);
   const dbDir = path.dirname(dbPath);
   if (!fs.existsSync(dbDir)) {
     fs.mkdirSync(dbDir, { recursive: true });
   }
   sequelizeConfig.storage = dbPath; // Use storage option for SQLite
   console.log(`Using SQLite database at: ${dbPath}`);
-} else {
+} else if (config.db.dialect === "mysql") {
   // Configuration for other dialects like MySQL, PostgreSQL
-  sequelizeConfig.host = config.db.host;
-  sequelizeConfig.port = config.db.port;
-  sequelizeConfig.database = config.db.database;
-  sequelizeConfig.username = config.db.username;
-  sequelizeConfig.password = config.db.password;
+  sequelizeConfig.host = config.db.mySQL.host;
+  sequelizeConfig.port = config.db.mySQL.port;
+  sequelizeConfig.database = config.db.mySQL.database;
+  sequelizeConfig.username = config.db.mySQL.username;
+  sequelizeConfig.password = config.db.mySQL.password;
   sequelizeConfig.pool = {
     // Connection pool settings (adjust for production)
     max: 5,
@@ -34,6 +34,8 @@ if (config.db.dialect === "sqlite") {
   console.log(
     `Using ${config.db.dialect} database: ${config.db.database} on ${config.db.host}:${config.db.port}`
   );
+} else {
+  console.error("ERROR: kein dialect definiert!");
 }
 
 const sequelize = new Sequelize(sequelizeConfig);

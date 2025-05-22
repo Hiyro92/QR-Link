@@ -33,9 +33,6 @@ const startServer = async () => {
       );
       if (config.nodeEnv === "development") {
         console.log(`Force sync was ${forceSync ? "ENABLED" : "DISABLED"}.`);
-        if (config.db.dialect === "sqlite") {
-          console.log(`SQLite database file: ${config.db.storage}`);
-        }
       }
     });
 

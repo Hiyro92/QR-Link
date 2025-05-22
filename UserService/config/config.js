@@ -5,12 +5,16 @@ module.exports = {
   nodeEnv: process.env.NODE_ENV || "development",
   db: {
     dialect: process.env.DB_DIALECT || "mysql", // Read dialect
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
-    database: process.env.DB_NAME || "auth_service",
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    storage: process.env.SQLITE_STORAGE || "./data/database.sqlite", // Read SQLite storage path
+    mySQL: {
+      host: process.env.MYSQL_HOST,
+      port: process.env.MYSQL_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
+      database: process.env.MYSQL_NAME || "auth_service",
+      username: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+    },
+    SQLite: {
+      storage: process.env.SQLITE_STORAGE || "./data/database.sqlite", // Read SQLite storage path
+    },
   },
   jwt: {
     secret: process.env.JWT_SECRET || "your_jwt_secret_key",
